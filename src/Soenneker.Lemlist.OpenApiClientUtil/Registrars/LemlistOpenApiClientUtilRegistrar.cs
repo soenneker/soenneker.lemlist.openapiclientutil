@@ -1,0 +1,34 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Soenneker.Lemlist.HttpClients.Registrars;
+using Soenneker.Lemlist.OpenApiClientUtil.Abstract;
+
+namespace Soenneker.Lemlist.OpenApiClientUtil.Registrars;
+
+/// <summary>
+/// Registers the OpenAPI client utility for dependency injection.
+/// </summary>
+public static class LemlistOpenApiClientUtilRegistrar
+{
+    /// <summary>
+    /// Adds <see cref="LemlistOpenApiClientUtil"/> as a singleton service. <para/>
+    /// </summary>
+    public static IServiceCollection AddLemlistOpenApiClientUtilAsSingleton(this IServiceCollection services)
+    {
+        services.AddLemlistOpenApiHttpClientAsSingleton()
+                .TryAddSingleton<ILemlistOpenApiClientUtil, LemlistOpenApiClientUtil>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds <see cref="LemlistOpenApiClientUtil"/> as a scoped service. <para/>
+    /// </summary>
+    public static IServiceCollection AddLemlistOpenApiClientUtilAsScoped(this IServiceCollection services)
+    {
+        services.AddLemlistOpenApiHttpClientAsSingleton()
+                .TryAddScoped<ILemlistOpenApiClientUtil, LemlistOpenApiClientUtil>();
+
+        return services;
+    }
+}
