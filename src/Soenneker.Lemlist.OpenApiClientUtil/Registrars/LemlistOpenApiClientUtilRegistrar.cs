@@ -13,6 +13,8 @@ public static class LemlistOpenApiClientUtilRegistrar
     /// <summary>
     /// Adds <see cref="LemlistOpenApiClientUtil"/> as a singleton service. <para/>
     /// </summary>
+    /// <param name="services">Service collection that receives the registration.</param>
+    /// <returns>The same service collection, so additional registrations can be chained.</returns>
     public static IServiceCollection AddLemlistOpenApiClientUtilAsSingleton(this IServiceCollection services)
     {
         services.AddLemlistOpenApiHttpClientAsSingleton()
@@ -24,6 +26,8 @@ public static class LemlistOpenApiClientUtilRegistrar
     /// <summary>
     /// Adds <see cref="LemlistOpenApiClientUtil"/> as a scoped service. <para/>
     /// </summary>
+    /// <param name="services">Service collection that receives the registration.</param>
+    /// <returns>The same service collection, so additional registrations can be chained.</returns>
     public static IServiceCollection AddLemlistOpenApiClientUtilAsScoped(this IServiceCollection services)
     {
         services.AddLemlistOpenApiHttpClientAsSingleton()
