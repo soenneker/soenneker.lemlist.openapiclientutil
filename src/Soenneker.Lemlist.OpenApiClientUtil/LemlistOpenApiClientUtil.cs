@@ -11,7 +11,6 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Lemlist.OpenApiClientUtil;
 
-/// <inheritdoc cref="ILemlistOpenApiClientUtil"/>
 public sealed class LemlistOpenApiClientUtil : ILemlistOpenApiClientUtil
 {
     private readonly AsyncSingleton<LemlistOpenApiClient> _client;

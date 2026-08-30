@@ -1,10 +1,12 @@
 [![](https://img.shields.io/nuget/v/soenneker.lemlist.openapiclientutil.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.lemlist.openapiclientutil/)
+[![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.lemlist.openapiclientutil/build-and-test.yml?style=for-the-badge)](https://github.com/soenneker/soenneker.lemlist.openapiclientutil/actions/workflows/build-and-test.yml)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.lemlist.openapiclientutil/publish-package.yml?style=for-the-badge)](https://github.com/soenneker/soenneker.lemlist.openapiclientutil/actions/workflows/publish-package.yml)
 [![](https://img.shields.io/nuget/dt/soenneker.lemlist.openapiclientutil.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.lemlist.openapiclientutil/)
+[![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.lemlist.openapiclientutil/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.lemlist.openapiclientutil/actions/workflows/codeql.yml)
 
 # Soenneker.Lemlist.OpenApiClientUtil
 
-Exposes a cached OpenAPI client instance.
+Dependency-injection setup and lazy reuse for `LemlistOpenApiClient`.
 
 ## Install
 
@@ -12,31 +14,33 @@ Exposes a cached OpenAPI client instance.
 dotnet add package Soenneker.Lemlist.OpenApiClientUtil
 ```
 
-## Quick start
+## Configuration
 
-```csharp
-using Soenneker.Lemlist.OpenApiClientUtil.Registrars;
-using Microsoft.Extensions.DependencyInjection;
-
-var services = new ServiceCollection();
-var result = services.AddLemlistOpenApiClientUtilAsSingleton();
+```json
+{
+  "Lemlist": {
+    "ApiKey": "your-api-key"
+  }
+}
 ```
 
-Adds `LemlistOpenApiClientUtil` as a singleton service.
+Set `Lemlist:ClientBaseUrl` only when the API should use a different base URL.
 
-## What you get
+## Usage
 
-- `ILemlistOpenApiClientUtil` — Exposes a cached OpenAPI client instance.
-- `LemlistOpenApiClientUtilRegistrar` — Registers the OpenAPI client utility for dependency injection.
+```csharp
+using Soenneker.Lemlist.OpenApiClientUtil.Abstract;
+using Soenneker.Lemlist.OpenApiClientUtil.Registrars;
 
-## API at a glance
+services.AddLemlistOpenApiClientUtilAsScoped();
 
-| API | What it does | Result / important behavior |
-| --- | --- | --- |
-| `LemlistOpenApiClientUtilRegistrar.AddLemlistOpenApiClientUtilAsSingleton(services)` | Adds `LemlistOpenApiClientUtil` as a singleton service. | The same service collection, so additional registrations can be chained. |
-| `LemlistOpenApiClientUtilRegistrar.AddLemlistOpenApiClientUtilAsScoped(services)` | Adds `LemlistOpenApiClientUtil` as a scoped service. | The same service collection, so additional registrations can be chained. |
+ILemlistOpenApiClientUtil lemlist =
+    serviceProvider.GetRequiredService<ILemlistOpenApiClientUtil>();
 
-## Practical notes
+var client = await lemlist.Get(cancellationToken);
+var campaigns = await client.Campaigns.GetAsync(cancellationToken: cancellationToken);
+```
 
-- Reuse the registered client instead of constructing one per operation.
-- Dispose instances you own when their scope ends so held resources can be released.
+`Get()` creates the typed client on first use and returns the same instance for the utility's lifetime. The scoped registration intentionally keeps the underlying authenticated HTTP client singleton: a scope can release its typed utility without tearing down the transport shared by other scopes.
+
+Use `AddLemlistOpenApiClientUtilAsSingleton()` when the typed client should also live for the application lifetime.
