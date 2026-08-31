@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Description>A thread-safe utility for obtaining Lemlist's OpenApiClient singleton.</Description>
+        <Description>Creates and reuses an authenticated Lemlist generated client over the shared HTTP transport</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Lemlist.OpenApiClientUtil</AssemblyName>

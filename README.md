@@ -6,7 +6,7 @@
 
 # Soenneker.Lemlist.OpenApiClientUtil
 
-Dependency-injection setup and lazy reuse for `LemlistOpenApiClient`.
+Create and reuse an authenticated `LemlistOpenApiClient` over the shared Lemlist HTTP transport.
 
 ## Install
 

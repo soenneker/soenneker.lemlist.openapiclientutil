@@ -6,7 +6,7 @@ using Soenneker.Lemlist.OpenApiClientUtil.Abstract;
 namespace Soenneker.Lemlist.OpenApiClientUtil.Registrars;
 
 /// <summary>
-/// Registers the OpenAPI client utility for dependency injection.
+/// Registers the lazily created Lemlist generated-client provider.
 /// </summary>
 public static class LemlistOpenApiClientUtilRegistrar
 {
