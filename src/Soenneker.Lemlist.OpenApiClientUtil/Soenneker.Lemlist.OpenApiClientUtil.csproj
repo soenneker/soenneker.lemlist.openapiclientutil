@@ -43,8 +43,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Lemlist.HttpClients" Version="4.0.24" />
-        <PackageReference Include="Soenneker.Lemlist.OpenApiClient" Version="4.0.16" />
+        <PackageReference Include="Soenneker.Lemlist.HttpClients" Version="4.0.25" />
+        <PackageReference Include="Soenneker.Lemlist.OpenApiClient" Version="4.0.17" />
         <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.831" />
     </ItemGroup>
 </Project>
