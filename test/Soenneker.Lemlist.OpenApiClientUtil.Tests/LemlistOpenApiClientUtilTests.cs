@@ -5,6 +5,7 @@ using Soenneker.Lemlist.OpenApiClientUtil.Registrars;
 using Soenneker.Lemlist.HttpClients.Abstract;
 using Microsoft.Extensions.DependencyInjection;
 using Soenneker.Tests.HostedUnit;
+using System.Threading;
 
 namespace Soenneker.Lemlist.OpenApiClientUtil.Tests;
 
@@ -25,7 +26,7 @@ public sealed class LemlistOpenApiClientUtilTests : HostedUnitTest
     }
 
     [Test]
-    public async ValueTask Scoped_utility_keeps_http_client_singleton()
+    public async ValueTask Scoped_utility_keeps_http_client_singleton(CancellationToken cancellationToken)
     {
         var services = new ServiceCollection();
 
