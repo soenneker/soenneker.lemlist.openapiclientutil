@@ -47,6 +47,6 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Lemlist.HttpClients" Version="11.0.87" />
-        <PackageReference Include="Soenneker.Lemlist.OpenApiClient" Version="11.0.69" />
+        <PackageReference Include="Soenneker.Lemlist.OpenApiClient" Version="11.0.70" />
     </ItemGroup>
 </Project>
